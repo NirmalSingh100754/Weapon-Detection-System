@@ -1,15 +1,28 @@
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from PyQt5.uic import loadUi
+from detection_window import DetectioWindow
+
 
 class SettingsWindow(QMainWindow):
     def __init__(self):
-        super(SettingsWindow,self).__init__()
+        super(SettingsWindow, self).__init__()
         loadUi("UI/settings_window.ui", self)
 
+        self.detection_window = DetectioWindow()
         self.pushButton.clicked.connect(self.go_to_detection_window)
-
 
     def displayInfo(self):
         self.show()
+
     def go_to_detection_window(self):
-        print("go to detection window")
+        if self.detection_window.isVisible():
+            print("Detection window is already open")
+        else:
+            self.detection_window.create_detection_instance()
+            self.detection_window.start_detection()
+
+    def closeEvent(self, event):
+        if self.detection_window.isVisible():
+            self.detection_window.detection.running = False
+            self.detection_window.close()
+            event.accept()

@@ -6,8 +6,8 @@ name = "pypi"
 [packages]
 requests = "*"
 numpy = "*"
-pyqt5 = "*"
 opencv-python-headless = "*"
+pyqt5 = "*"
 
 [dev-packages]
 
